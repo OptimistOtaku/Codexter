@@ -1,10 +1,13 @@
+[![Codexter cleans up after your mess. A cute cleanup mascot sweeps task leftovers while preserving work and evidence.](assets/codexter-banner.png)](https://github.com/OptimistOtaku/Codexter)
+
 # Codexter
 
-**Codexter cleans up after your mess.**
+[![Tests](https://github.com/OptimistOtaku/Codexter/actions/workflows/test.yml/badge.svg)](https://github.com/OptimistOtaku/Codexter/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-olive.svg)](LICENSE)
 
 Codexter ships the `$codex-cleanup` skill for Codex: clean up task leftovers while preserving work and evidence.
 
-Use it after a task or another skill finishes to release verified task-owned resources and remove disposable scratch files and caches. Its Python helper previews exact file deletions, checks them again before applying, and retains an audit receipt.
+**Clear the leftovers. Keep the work.** Preview deletion, clean verified task-owned resources, and preserve deliverables and diagnostic evidence with an audit receipt.
 
 **This is resource hygiene, not a repair for an internal Codex memory leak.** Closing a task-owned browser or test server can release resources. Deleting disk caches does not repair a live application's heap. No RAM-saving claims or benchmarks are made.
 
