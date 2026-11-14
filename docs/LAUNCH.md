@@ -4,7 +4,7 @@ Repository: `OptimistOtaku/Codexter`.
 
 Description: Codexter cleans up after your mess.
 
-Publication status: [public repository](https://github.com/OptimistOtaku/Codexter) published; initial six-job CI matrix passed. X post remains a draft.
+Publication status: [public repository](https://github.com/OptimistOtaku/Codexter) published; updated nine-job CI matrix passed, including installation checks on Windows, macOS and Linux. X post remains a draft.
 
 ## Release copy
 
