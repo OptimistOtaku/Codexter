@@ -16,6 +16,18 @@ The suite checks preview without deletion, preservation of evidence/deliverables
 
 Git could fall back to an enclosing repository when a nested repository's metadata was malformed. The helper now verifies that Git's resolved root matches the nearest metadata boundary. The behavior is covered by a regression test. Audit-write failures after deletion now report partial cleanup instead of implying that nothing changed.
 
-## Unverified environments and outcomes
+## GitHub CI
 
-The GitHub Actions matrix is configured for Windows, macOS and Linux with Python 3.10 and 3.13; those remote jobs have not run as part of local validation. No live browser/server/container was terminated for these tests. Runtime teardown guidance is not an automated lifecycle test. No physical disk-space or RAM improvement was measured, and no internal Codex memory leak was reproduced or repaired.
+[Workflow run 43629172165](https://github.com/OptimistOtaku/Codexter/actions/runs/43629172165) passed all six jobs for source commit `006332b542591280b08114528940d11fa7612a8a`:
+
+| Runner | Python 3.10 | Python 3.13 |
+| --- | --- | --- |
+| Ubuntu | Passed | Passed |
+| macOS | Passed | Passed |
+| Windows | Passed | Passed |
+
+The Ubuntu/Python 3.13 log shows 29 tests, with only the Windows-only junction test skipped; its real symlink test passed. The Windows/Python 3.13 log shows all 29 tests passing, including real symlink, hard-link and junction fixtures. The local Windows symlink privilege limitation therefore did not prevent CI validation of that behavior.
+
+## Unverified outcomes
+
+No live browser/server/container was terminated for these tests. Runtime teardown guidance is not an automated lifecycle test. No physical disk-space or RAM improvement was measured, and no internal Codex memory leak was reproduced or repaired.

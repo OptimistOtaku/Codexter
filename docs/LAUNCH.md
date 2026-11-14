@@ -4,6 +4,8 @@ Repository: `OptimistOtaku/Codexter`.
 
 Description: Codexter cleans up after your mess.
 
+Publication status: [public repository](https://github.com/OptimistOtaku/Codexter) published; initial six-job CI matrix passed. X post remains a draft.
+
 ## Release copy
 
 Codexter helps Codex finish a task by cleaning up its own disposable resources. It preserves deliverables and diagnostic evidence, uses a preview-and-apply file helper, and guides runtime teardown through verified task ownership. Invoke its installed skill as `$codex-cleanup`.
