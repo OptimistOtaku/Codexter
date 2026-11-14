@@ -31,3 +31,12 @@ The Ubuntu/Python 3.13 log shows 29 tests, with only the Windows-only junction t
 ## Unverified outcomes
 
 No live browser/server/container was terminated for these tests. Runtime teardown guidance is not an automated lifecycle test. No physical disk-space or RAM improvement was measured, and no internal Codex memory leak was reproduced or repaired.
+
+## Installation improvements: 2026-11-15
+
+- `gh skill install` was researched through TinyFish using primary documentation, then tested locally with GitHub CLI 2.102.0.
+- `python -B tests/install_smoke.py`: passed on local Windows. The CLI installed the full skill into an isolated custom destination; its installed helper ran from another working directory, deleted a real temporary file and preserved evidence. The fixture was removed afterward. No home directories or existing skill copies were changed by this check.
+- Skill Creator validation: **Skill is valid!** GitHub CLI `gh skill publish --dry-run`: **ok**, with no missing-license warning after adding the existing MIT license to skill metadata and the installed folder.
+- The CI workflow now includes three installation smoke jobs in addition to the six cleanup-test jobs. Their result is recorded separately once the updated workflow completes.
+
+The `npx skills` alternative is documented from upstream sources; it was not executed on this local machine because its Node.js version is below the current upstream requirement. No change was made to the cleanup helper's runtime behavior.

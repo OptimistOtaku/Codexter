@@ -30,3 +30,17 @@ These are design inferences, not guarantees from OpenAI:
 The helper handles files only. Runtime teardown remains tool-specific and must be reported separately. It does not scan global temp directories, purge browser profiles or package-manager caches, erase Codex history/state/authentication, or clean up unrelated runs. It is not a memory-leak fix or a memory benchmark.
 
 The helper rejects observed links/reparse points and rechecks paths before deletion. It is intended for a quiescent, trusted workspace, not as a security boundary against concurrent adversarial filesystem replacement. Git inspection fails closed when unavailable or inconclusive. Files deleted after explicit apply are not recoverable through this tool.
+
+## Installation research: applied on 2026-11-15
+
+TinyFish Search and Fetch were used to read current OpenAI, GitHub CLI and Skills CLI primary documentation. The practical findings applied to this package are:
+
+- Keep the existing `skills/codex-cleanup/SKILL.md` layout: current installers discover it directly, including supporting files. A custom installer would duplicate their work.
+- Lead with the same native `gh skill install` command on macOS and Windows. Explicit skill name, agent and user scope remove selection prompts and ambiguous placement. A local smoke check rejected `skills/codex-cleanup` as a selector, so this single-skill repository uses its unambiguous name, `codex-cleanup`. Keep preview status and requirements visible. Use source-tracked updates instead of a default force-overwrite command. See [GitHub install](https://cli.github.com/manual/gh_skill_install) and [update](https://cli.github.com/manual/gh_skill_update).
+- Offer a one-line `$skill-installer` prompt for people already in Codex. Do not make them clone a repository or install Node just to install this skill.
+- Document `npx skills` as an alternative, with its current Node 22.20+ requirement and `--copy` for Windows portability. Its own agent mapping should determine the destination, since historic path tables differ. See the [maintained CLI](https://github.com/vercel-labs/skills).
+- Front-load and shorten the skill's discovery description. Current [OpenAI guidance](https://learn.chatgpt.com/docs/build-skills) says large skill collections can shorten descriptions in the initial metadata budget; full instructions still load when selected. Preserve the deletion and evidence rules in the body.
+- Declare the existing MIT license in skill metadata and bundle its notice inside the installed folder. GitHub's publishing validator recommends a license field, and installations should preserve the license along with the helper and references.
+- Distinguish installing a skill from an always-running hook. Official guidance recommends plugin packaging for wider catalog distribution; a direct GitHub skill remains supported by the documented installers. No plugin registration or new background service was added.
+
+The package now includes an installation smoke check that installs the whole skill with GitHub CLI into an isolated destination and exercises its helper. Runtime cleanup behavior remains unchanged.

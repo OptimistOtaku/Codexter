@@ -10,28 +10,29 @@ Use it after a task or another skill finishes to release verified task-owned res
 
 ## Install
 
-Copy the entire `skills/codex-cleanup` folder into a skill directory supported by your Codex version. Current official documentation lists `~/.agents/skills` for user skills and `.agents/skills` for project skills. Some installations, including older layouts, also use `~/.codex/skills`. Use one location to avoid duplicate entries.
-
-From this repository root, for a user installation:
-
-PowerShell:
-
-```powershell
-$skillParent = Join-Path $HOME '.agents/skills'
-$skillTarget = Join-Path $skillParent 'codex-cleanup'
-if (Test-Path -LiteralPath $skillTarget) { throw 'Skill already exists; review before updating.' }
-New-Item -ItemType Directory -Path $skillParent -Force | Out-Null
-Copy-Item -LiteralPath './skills/codex-cleanup' -Destination $skillTarget -Recurse
-```
-
-macOS/Linux:
+**One command, the same on macOS, Linux, and Windows PowerShell:**
 
 ```sh
-mkdir -p "$HOME/.agents/skills"
-test ! -e "$HOME/.agents/skills/codex-cleanup" && cp -R skills/codex-cleanup "$HOME/.agents/skills/"
+gh skill install OptimistOtaku/Codexter codex-cleanup --agent codex --scope user
 ```
 
-If the skill does not appear, restart Codex. See the official [skill discovery documentation](https://learn.chatgpt.com/docs/build-skills).
+Requires a recent [GitHub CLI](https://cli.github.com/) with `gh skill install` support. Sign in with `gh auth login` if requested. The native skill command is currently a GitHub CLI preview. It installs this skill for Codex across projects, handles folder placement, and records its source for updates. No repository clone, Node.js, or administrator privileges are needed.
+
+**Already inside Codex? Paste this one-line prompt instead:**
+
+```text
+$skill-installer install https://github.com/OptimistOtaku/Codexter/tree/main/skills/codex-cleanup
+```
+
+That is a Codex prompt, not a terminal command. The two methods are alternatives; install once to avoid duplicate skill entries. Codex detects new skills automatically; if the skill does not appear, restart Codex.
+
+To update an installation managed by GitHub CLI:
+
+```sh
+gh skill update codex-cleanup
+```
+
+For project-only installation, previews, pinned versions, the `npx skills` alternative, or manual installation, see [installation options](docs/INSTALLATION.md). See the official [GitHub install manual](https://cli.github.com/manual/gh_skill_install) and [Codex skill documentation](https://learn.chatgpt.com/docs/build-skills).
 
 The helper requires Python 3.10+ and Git on PATH, with no third-party Python packages. Runtime cleanup uses whatever supported tools are available in the current task.
 
@@ -93,6 +94,12 @@ python -B -m unittest discover -s tests -v
 ```
 
 Tests use isolated temporary fixtures. Git must be available. Symbolic-link tests may skip when OS privileges prevent creating a fixture; junction tests run on Windows. CI is configured for Windows, macOS and Linux with Python 3.10 and 3.13. See [validation evidence](docs/VALIDATION.md) for what has actually run.
+
+The installation smoke check uses GitHub CLI to install into an isolated directory, checks that supporting files survive installation, and runs the installed helper through a real cleanup while preserving evidence:
+
+```text
+python -B tests/install_smoke.py
+```
 
 - [Research and source limitations](docs/RESEARCH.md)
 - [Implementation plan](PLAN.md)

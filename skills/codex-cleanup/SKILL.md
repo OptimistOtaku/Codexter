@@ -1,6 +1,7 @@
 ---
 name: codex-cleanup
-description: Clean up task-owned temporary files, disposable caches, and runtime resources after Codex work or another skill finishes, while preserving deliverables and diagnostic evidence. Use at task wrap-up or when resource pressure calls for cleanup; also initialize ownership before resource-heavy work. Does not repair Codex internals or perform general system cleanup.
+license: MIT
+description: Clean up task-owned temp files, caches, and runtime resources when a Codex task or skill finishes. Preserve deliverables and diagnostic evidence. Also use before resource-heavy work to establish ownership. Does not repair internal memory leaks or clean the whole system.
 ---
 
 # Codex Cleanup
